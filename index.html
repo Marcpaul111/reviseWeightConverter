@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <style>
+        .container-fluid {
+            font-family: sans-serif;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            background: rgb(2,0,36);
+            background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(99,23,120,1) 35%, rgba(0,212,255,1) 100%);
+            
+        }
+
+        .col-4 {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgb(63,94,251);
+            background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+            opacity: 0.8;
+            
+        }
+
+        h1 {
+            padding-top: 50px;
+        }
+
+
+
+    </style>
+
+    <title>Weight Converter</title>
+  
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+
+    <div class="container-fluid" style="height: 100vh;">
+        
+            <h1 class="text-center">Weight Converter</h1>
+        
+        <div class="d-flex-4 text-center h-100">
+            <div class="col-4 text-wrap bg-secondary h-50">
+                <p>Enter a value in grams</p>
+                <input type="text" id="grams"><br><span id="error" style="color: rgb(201, 5, 5);"></span>
+
+                <p>
+                    Convert to
+                    <select id="type">
+                        <option value="Pounds">Pounds</option>
+                        <option value="Kilograms">Kilograms</option>
+                        <option value="Ounces">Ounces</option>
+                        <option value="Stones">Stones</option>
+                    </select>
+                </p>
+
+                <button id="btn">Convert</button>
+                <p id="output"></p>
+            </div>
+        </div>
+    </div>
+
+
+
+
+<script>
+    let button = document.getElementById('btn');
+
+button.addEventListener('click', function(){
+    const gram = parseInt(document.getElementById('grams').value);
+    const type = document.getElementById('type').value;
+
+    if(gram === '' || isNaN(gram)){
+        document.getElementById('grams').focus();
+        document.getElementById('error').innerHTML = 'Please provide a valid value';
+        document.getElementById('output').innerHTML = '';
+    }else{
+        document.getElementById('error').innerHTML = '';
+        switch(type){
+            case 'Pounds':
+                convert_pounds(gram);
+                break;
+            case 'Kilograms':
+                convert_kilogram(gram);
+                break;
+            case 'Ounces':
+                convert_ounces(gram);
+                break;
+            case 'Stones':
+                convert_stones(gram);
+                break;
+            default:
+                alert('Error');
+        }
+
+        function convert_pounds(gram){
+            let rate = 0.0022, pounds;
+            pounds = gram * rate;
+            document.getElementById('output').innerHTML = gram + " grams = " + pounds.toFixed(3) + ' pounds.';
+        }
+        function convert_kilogram(gram){
+            let rate = 0.001, kilogram;
+            kilogram = gram * rate;
+            document.getElementById('output').innerHTML = gram + " grams = " + kilogram.toFixed(3) + ' kg.';
+        }
+        function convert_ounces(gram){
+            let rate = 0.035274, ounces;
+            ounces = gram * rate;
+            document.getElementById('output').innerHTML = gram + " grams = " + ounces.toFixed(3) + ' ounces.';
+        }
+        function convert_stones(gram){
+            let rate = 0.00015747, stones;
+            stones = gram * rate;
+            document.getElementById('output').innerHTML = gram + " grams = " + stones.toFixed(3) + ' stones.';
+        }
+    }
+});
+
+</script>
+</body>
+</html>
